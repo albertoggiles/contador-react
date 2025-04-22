@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
 
-function App() {
+export default function App() {
+  const [count, setCount] = useState(() => {
+    // Intentar recuperar el valor desde localStorage al cargar la app
+    const saved = localStorage.getItem("contador");
+    return saved !== null ? Number(saved) : 0;
+  });
+
+  // Cada vez que cambie el contador, actualizar localStorage
+  useEffect(() => {
+    localStorage.setItem("contador", count);
+  }, [count]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Contador con localStorage</h1>
+      <p>Has hecho clic {count} veces</p>
+      <button onClick={() => setCount(count + 1)}>Incrementar</button>
+      <br />
+      <button onClick={() => setCount(0)} style={{ marginTop: "10px" }}>
+        Reiniciar
+      </button>
     </div>
   );
 }
-
-export default App;
