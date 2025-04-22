@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 
 export default function App() {
+  // Intentar recuperar el valor desde localStorage al cargar la app
   const [count, setCount] = useState(() => {
-    // Intentar recuperar el valor desde localStorage al cargar la app
     const saved = localStorage.getItem("contador");
     return saved !== null ? Number(saved) : 0;
   });
@@ -13,7 +14,7 @@ export default function App() {
   }, [count]);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div className="container">
       <h1>Contador con localStorage</h1>
       <p>Has hecho clic {count} veces</p>
       <button onClick={() => setCount(count + 1)}>Incrementar</button>
